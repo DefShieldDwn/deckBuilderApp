@@ -92,7 +92,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CardsController.cs" />
+    <Compile Include="Controllers\DeckCardsController.cs" />
     <Compile Include="Controllers\DecksController.cs" />
+    <Compile Include="DTO\CardDTO.cs" />
     <Compile Include="DTO\DeckDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

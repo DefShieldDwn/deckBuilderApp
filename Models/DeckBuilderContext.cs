@@ -17,11 +17,15 @@ namespace DeckBuilder.Models
     
         public DeckBuilderContext() : base("name=DeckBuilderConnectionString")
         {
+            Database.SetInitializer<DeckBuilderContext>(null);
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Deck> Decks { get; set; }
-
         public DbSet<User> Users { get; set; }
+        public DbSet<Card> Cards { get; set; }
+        public DbSet <Element> Elements { get; set; }
+        public DbSet <DeckCard> DeckCards { get; set; }
 
 
     }

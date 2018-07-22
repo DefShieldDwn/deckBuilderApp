@@ -17,7 +17,7 @@ namespace DeckBuilder.Controllers
     [RoutePrefix("api/Decks")]
     public class DecksController : ApiController
     {
-        private DeckBuilderContext database;
+        private DeckBuilderContext database = new DeckBuilderContext();
 
         [Route("AllDecks")]
         public IHttpActionResult GetAllDecks()
@@ -30,14 +30,14 @@ namespace DeckBuilder.Controllers
         public IHttpActionResult GetDeckById(int deckId)
         {
             var result = database.Decks.SingleOrDefault(x => x.Id == deckId);
-            return Ok()
+            return Ok(result);
         }
 
         [Route("Delete")]
         public IHttpActionResult PostDeleteDeckById(int deckId)
         {
-            var deck = database.Decks.SingleOrDefault(x => x.Id == deckId;
-            //database.Decks.Remove(deck); HARD DELETE
+            var deck = database.Decks.SingleOrDefault(x => x.Id == deckId);
+            //database.Decks.Remove(deck); //HARD DELETE
             deck.IsActive = false;
             database.SaveChanges();
             return Ok();
@@ -61,7 +61,7 @@ namespace DeckBuilder.Controllers
             else
             {
 
-                //when the front-end sends an ID, this one is updatng an old deck
+                //when the front-end sends an ID, this section is updatng an old deck
                 var existingDeck = database.Decks.SingleOrDefault(x => x.Id == deck.Id);
                 existingDeck.Name = deck.Name;
                 existingDeck.IsActive = deck.IsActive;
@@ -70,6 +70,13 @@ namespace DeckBuilder.Controllers
 
             database.SaveChanges();
             return Ok();
+        }
+
+        [Route("SearchDecks")]
+        public IHttpActionResult GetDeckBySearchTerm(string searchTerm)
+        {
+            var result = database.Decks.Where(x => x.Name.Contains(searchTerm)).ToList();
+            return Ok(result);
         }
 
         //[Route("AddDeck")]

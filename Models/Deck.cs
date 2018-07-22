@@ -9,6 +9,7 @@ namespace DeckBuilder.Models
 {
     public class Deck
     {
+        [Key]
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
